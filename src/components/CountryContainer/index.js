@@ -4,12 +4,14 @@ import CountryCard from './CountryCard';
 import './style.css';
 import Searchbar from '../Searchbar';
 
+const load = './load.gif';
 class CountryContainer extends React.Component {
   constructor(props) {
     super(props);
     this.fetchCountrys = this.fetchCountrys.bind(this);
     this.changeHandler = this.changeHandler.bind(this);
     this.filterByname = this.filterByname.bind(this);
+    this.openCard = this.openCard.bind(this);
     this.state = {
       paises: {},
       filteredCountrys: {},
@@ -42,16 +44,26 @@ class CountryContainer extends React.Component {
 
   filterByname() {
     const { paises, search, selectOption } = this.state;
+    this.setState({
+      loading: true,
+    });
     if (search.length !== 0) {
       this.setState(({
         filteredCountrys:
         paises.filter((pais) => pais.name.toUpperCase().includes(search.toUpperCase())),
+        loading: false,
       }));
     } else {
       this.setState({
         filteredCountrys: paises.filter((pais) => pais.region === selectOption),
+        loading: false,
       });
     }
+  }
+
+  // eslint-disable-next-line class-methods-use-this
+  openCard({ target }) {
+    console.log(target);
   }
 
   render() {
@@ -61,7 +73,7 @@ class CountryContainer extends React.Component {
 
     if (loading) {
       return (
-        <div>Carregando</div>
+        <div className="Loading"><img src={load} alt="Loading Gif" /></div>
       );
     }
 

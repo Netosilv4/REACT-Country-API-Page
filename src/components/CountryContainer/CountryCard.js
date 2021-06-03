@@ -1,6 +1,9 @@
+/* eslint-disable jsx-a11y/no-static-element-interactions */
+/* eslint-disable jsx-a11y/click-events-have-key-events */
 /* eslint-disable react/prop-types */
 /* eslint-disable react/jsx-filename-extension */
 import React from 'react';
+import { Link } from 'react-router-dom';
 
 class CountryCard extends React.Component {
   constructor(props) {
@@ -37,6 +40,7 @@ class CountryCard extends React.Component {
             {capital}
           </li>
         </ul>
+        <Link to={`${name}/details`}>Mais detalhes</Link>
       </div>
     );
   }

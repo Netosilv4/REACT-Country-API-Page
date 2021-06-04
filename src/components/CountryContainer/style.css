@@ -14,6 +14,7 @@
     background-color: hsl(209, 23%, 22%);
     border-radius: 10px;
     justify-content: space-between;
+    transition-duration: 0.3;
 }
 
 .CountryCard:hover {
@@ -31,11 +32,15 @@
 }
 
 .Loading {
-    width: 100%;
-    height: 400px;
-    background-color: white;
+    display: flex;
+    color: white;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
 }
 
-.Loadin img {
-    width: 100%;
+
+span {
+    font-weight: 800;
 }
+

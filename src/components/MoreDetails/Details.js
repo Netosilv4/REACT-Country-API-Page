@@ -19,27 +19,27 @@ class Details extends React.Component {
       <ul className="LeftList">
         <h1>{name}</h1>
         <li>
-          Native Name:
+          <span>Native Name:</span>
           {' '}
           {nativeName}
         </li>
         <li>
-          Population:
+          <span>Population:</span>
           {' '}
           {population}
         </li>
         <li>
-          region:
+          <span>region:</span>
           {' '}
           {region}
         </li>
         <li>
-          Sub Region:
+          <span>Sub Region:</span>
           {' '}
           {subRegion}
         </li>
         <li>
-          Capital:
+          <span>Capital:</span>
           {' '}
           {capital}
         </li>

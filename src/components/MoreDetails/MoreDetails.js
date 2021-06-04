@@ -18,17 +18,17 @@ class EspecificDetails extends React.Component {
     return (
       <ul className="RightList">
         <li>
-          Top Level Domain:
+          <span>Top Level Domain:</span>
           {' '}
           {topLevel}
         </li>
         <li>
-          Currencies:
+          <span>Currencies:</span>
           {' '}
           {currencies}
         </li>
         <li>
-          Languages:
+          <span>Languages:</span>
           {' '}
           {languages}
         </li>

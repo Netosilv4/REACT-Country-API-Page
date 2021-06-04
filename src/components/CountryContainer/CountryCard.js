@@ -15,7 +15,7 @@ class CountryCard extends React.Component {
 
   render() {
     const {
-      imagePath, name, population, region, capital,
+      imagePath, name, population, region, capital, code,
     } = this.props;
     return (
       <div className="CountryCard">
@@ -25,22 +25,22 @@ class CountryCard extends React.Component {
         <h1>{name}</h1>
         <ul>
           <li>
-            Population:
+            <span>Population:</span>
             {' '}
             {population}
           </li>
           <li>
-            Region:
+            <span>Region:</span>
             {' '}
             {region}
           </li>
           <li>
-            Capital:
+            <span>Capital:</span>
             {' '}
             {capital}
           </li>
         </ul>
-        <Link to={`${name}/details`}>Mais detalhes</Link>
+        <Link to={`/${code}/details`}>Mais detalhes</Link>
       </div>
     );
   }

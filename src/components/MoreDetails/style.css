@@ -1,16 +1,45 @@
 .MoreDetails {
     display: flex;
     width: 100%;
-    height: 70vh;
     justify-content: center;
     align-items: center;
     color: white;
     justify-content: space-around;
+    flex-wrap: wrap;
+    line-height: 40px;
 }
 
-.MoreDetails div {
-    display: flex;
+.MoreDetails img {
+    width: 70%;
+    height: 100%;
+}
+
+.MoreDetails a:hover {
+    background-color: hsl(209, 23%, 22%);
+}
+.ListContainer {
     width: 50%;
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+    flex-wrap: wrap;
+}
+
+.FlagContainer {
+    width: 50%;
+    display: flex;
+    flex-direction: column;
     justify-content: center;
     align-items: center;
+}
+
+.BorderButtons {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    margin: 5%;
+}
+.ButtonContainer {
+    width: 100%;
+    padding: 2% 10%;
 }

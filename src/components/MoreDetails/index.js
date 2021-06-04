@@ -1,5 +1,9 @@
+/* eslint-disable react/jsx-filename-extension */
+/* eslint-disable react/jsx-no-undef */
 /* eslint-disable react/prop-types */
 import React from 'react';
+import { Redirect, Link } from 'react-router-dom';
+import BorderButtons from './BorderButtons';
 import Details from './Details';
 import EspecificDetails from './MoreDetails';
 import './style.css';
@@ -8,20 +12,23 @@ class MoreDetails extends React.Component {
   constructor(props) {
     super(props);
     this.fetchCountry = this.fetchCountry.bind(this);
+    this.redirectHandler = this.fetchCountry.bind(this);
     this.state = {
       pais: {},
-      name: props.match.params.id,
+      code: props.match.params.id,
       loading: true,
+      redirect: false,
+      redirectCode: '',
     };
   }
 
   componentDidMount() {
-    const { name } = this.state;
-    this.fetchCountry(name);
+    const { code } = this.state;
+    this.fetchCountry(code);
   }
 
-  async fetchCountry(name) {
-    let details = await fetch(`https://restcountries.eu/rest/v2/name/${name}?fullText=true`);
+  async fetchCountry(code) {
+    let details = await fetch(`https://restcountries.eu/rest/v2/alpha/${code}`);
     details = await details.json();
     this.setState(({
       pais: details,
@@ -29,39 +36,69 @@ class MoreDetails extends React.Component {
     }));
   }
 
+  redirectHandler(code) {
+    if (code) {
+      this.setState({
+        redirectCode: code,
+        redirect: true,
+      });
+    } else {
+      this.setState({
+        redirectCode: 'home',
+        redirect: true,
+      });
+    }
+  }
+
   render() {
-    const { loading, pais } = this.state;
+    const {
+      loading, pais, redirect, redirectCode,
+    } = this.state;
+
+    if (redirect) {
+      <Redirect to={`${redirectCode}/details`} />;
+    }
 
     if (loading) {
       return (
-        // eslint-disable-next-line react/jsx-filename-extension
         <h1>Carregando</h1>
       );
     }
     return (
-    // eslint-disable-next-line react/jsx-filename-extension
-
       <main className="MoreDetails">
+        <div className="ButtonContainer">
+          <Link to="/">
+            Back
+          </Link>
+        </div>
         <div className="FlagContainer">
-          <img src={pais[0].flag} alt={`${pais[0].name} flag`} />
+          <img src={pais.flag} alt={`${pais.name} flag`} />
         </div>
         <div className="ListContainer">
-          <div className="ListWrapper">
-            <Details
-              name={pais[0].name}
-              nativeName={pais[0].nativeName}
-              region={pais[0].region}
-              capital={pais[0].capital}
-              population={pais[0].population}
-              subRegion={pais[0].subregion}
-            />
-            <EspecificDetails
-              topLevel={pais[0].topLevelDomain.join(', ')}
-              currencies={pais[0].currencies.map((language) => language.name).join(', ')}
-              languages={pais[0].languages.map((language) => language.name).join(', ')}
-            />
+          <Details
+            name={pais.name}
+            nativeName={pais.nativeName}
+            region={pais.region}
+            capital={pais.capital}
+            population={pais.population}
+            subRegion={pais.subregion}
+          />
+          <EspecificDetails
+            topLevel={pais.topLevelDomain.join(', ')}
+            currencies={pais.currencies.map((language) => language.name).join(', ')}
+            languages={pais.languages.map((language) => language.name).join(', ')}
+          />
+          <div className="BorderButtons">
+            <h1>Border countries: </h1>
+            <div>
+              {pais.borders.map((border) => (
+                <BorderButtons
+                  name={border}
+                  redirectHandler={() => this.redirectHandler(border)}
+                />
+              ))}
+            </div>
           </div>
-
         </div>
       </main>
     );
